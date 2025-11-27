@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata: # kpt-merge: /oai-up-operators
+  name: oai-up-operators
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: 'kpt.dev|Kptfile|default|oai-up-operators'
+upstream:
+  type: git
+  git:
+    repo: https://github.com/OPENAIRINTERFACE/oai-packages.git
+    directory: oai-up-operators
+    ref: r3
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/OPENAIRINTERFACE/oai-packages.git
+    directory: oai-up-operators
+    ref: r3
+    commit: fb98e533f3a66825930d70151fbb6593f2d7ef2c
+info:
+  description: oai user plane operators package
