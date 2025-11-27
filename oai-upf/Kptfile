@@ -19,9 +19,10 @@ upstreamLock:
     ref: r3
     commit: fb98e533f3a66825930d70151fbb6593f2d7ef2c
 info:
-  description: example upf blueprint package
   readinessGates:
+  - conditionType: config.injection.WorkloadCluster.workload-cluster
   - conditionType: nephio.org.Specializer.specialize
+  description: example upf blueprint package
 pipeline:
   mutators:
   - image: gcr.io/kpt-fn/apply-replacements:v0.1.1
@@ -41,19 +42,23 @@ pipeline:
   - image: docker.io/nephio/nfdeploy-fn:v3.0.0
 status:
   conditions:
-  - message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+  - type: config.injection.WorkloadCluster.workload-cluster
+    status: "False"
+    message: no in-cluster resources of type infra.nephio.org/v1alpha1.WorkloadCluster
+    reason: NoResourceSelected
+  - type: nephio.org.Specializer.specialize
+    status: "False"
+    message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
     reason: Failed
+  - type: req.nephio.org/v1alpha1.Interface.n3
     status: "False"
-    type: nephio.org.Specializer.specialize
-  - message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+    message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+  - type: req.nephio.org/v1alpha1.Interface.n4
     status: "False"
-    type: req.nephio.org/v1alpha1.Interface.n3
-  - message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+    message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+  - type: req.nephio.org/v1alpha1.Interface.n6
     status: "False"
-    type: req.nephio.org/v1alpha1.Interface.n4
-  - message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+    message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
+  - type: req.nephio.org/v1alpha1.Interface.sbi
     status: "False"
-    type: req.nephio.org/v1alpha1.Interface.n6
-  - message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
-    status: "False"
-    type: req.nephio.org/v1alpha1.Interface.sbi
+    message: 'spec invalid: mandatory field ClusterName is missing from WorkloadCluster'
